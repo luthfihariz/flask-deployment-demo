@@ -1,3 +1,4 @@
+from core.user.constants import UserRole
 from flask import Blueprint, request
 from marshmallow import Schema, fields, ValidationError, validate, validates
 from datetime import datetime, timedelta
@@ -11,6 +12,7 @@ class UserRegistrationSchema(Schema):
     username = fields.String(required=True, validate=validate.Length(min=3))
     email = fields.Email(required=True)
     password = fields.String(required=True, validate=validate.Length(min=5), load_only=True)
+    role = fields.Enum(UserRole, required=True)
 
     @validates("email")
     def validate_email(self, value):
@@ -27,7 +29,7 @@ def register():
         return {"error": err.messages}, 400
     
     return schema.dump(auth_service.register(
-        data['username'], data['password'], data['email']
+        data['username'], data['password'], data['email'], data['role']
     ))
 
 

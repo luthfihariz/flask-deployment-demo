@@ -9,6 +9,12 @@ from infrastructure.db import db
 
 class JobAccessor(IJobAccessor):
 
+    def create(self, title: str, employer: str, description: str) -> JobDomain:
+        job = Job(title=title, employer=employer, description=description)
+        db.session.add(job)
+        db.session.commit()
+        return ObjectMapperUtil.map(job, JobDomain)
+
     def get_all(self) -> List[JobDomain]:
         jobs = Job.query.all()
         return ObjectMapperUtil.map_array(jobs, JobDomain)
@@ -16,7 +22,6 @@ class JobAccessor(IJobAccessor):
     def get_by_id(self, job_id: int) -> JobDomain:
         job = Job.query.get(job_id)
         return ObjectMapperUtil.map(job, JobDomain)
-    
 
 
 class JobApplicationAccessor(IJobApplicationAccessor):

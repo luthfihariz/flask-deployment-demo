@@ -5,6 +5,10 @@ from core.job.models import JobApplicationDomain, JobDomain
 class IJobAccessor(ABC):
 
     @abstractmethod
+    def create(self, title: str, employer: str, description:str) -> JobDomain:
+        raise NotImplementedError
+
+    @abstractmethod
     def get_all(self) -> List[JobDomain]:
         raise NotImplementedError
     

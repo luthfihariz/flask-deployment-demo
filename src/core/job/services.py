@@ -15,7 +15,7 @@ class JobService():
         self.user_accessor = user_accessor
 
     def create_job(self, title:str, employer:str, description:str):
-        pass
+        return self.job_accessor.create(title, employer, description)
 
     def get_job_list(self):
         return self.job_accessor.get_all()

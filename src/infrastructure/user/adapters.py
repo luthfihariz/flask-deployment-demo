@@ -1,3 +1,4 @@
+from core.user.constants import UserRole
 from core.user.models import UserDomain
 from core.user.ports import IUserAccessor
 from infrastructure.db import db
@@ -7,8 +8,8 @@ from typing import Optional
 
 class UserAccessor(IUserAccessor):
     
-    def create_user(self, username: str, hashed_password: str, email: str) -> UserDomain:
-        new_user = User(username=username, email=email, password=hashed_password)
+    def create_user(self, username: str, hashed_password: str, email: str, role: UserRole) -> UserDomain:
+        new_user = User(username=username, email=email, password=hashed_password, role=role)
         db.session.add(new_user)
         db.session.commit()
 

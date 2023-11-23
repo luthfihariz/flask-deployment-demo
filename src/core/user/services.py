@@ -10,3 +10,7 @@ class UserService():
     def get_user_profile(self, username: str) -> UserDomain:
         user = self.user_accessor.get_by_username(username=username)
         return user
+    
+    def get_by_id(self, user_id: int) -> UserDomain:
+        user = self.user_accessor.get_by_id(user_id=user_id)
+        return user

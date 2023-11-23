@@ -21,6 +21,3 @@ def health_check():
 
 # with app.app_context():
 #     db_init()
-
-if __name__ == 'main':
-    app.run()
