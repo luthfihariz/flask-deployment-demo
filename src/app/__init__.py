@@ -15,6 +15,10 @@ app.register_blueprint(auth_blueprint, url_prefix="/auth")
 app.register_blueprint(user_blueprint, url_prefix="/user")
 app.register_blueprint(job_blueprint, url_prefix="/job")
 
+@app.route("/", methods=["GET"])
+def health_check():
+    return "OK", 200
+
 # with app.app_context():
 #     db_init()
 

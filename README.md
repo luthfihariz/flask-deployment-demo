@@ -13,7 +13,10 @@ docker run -p 4000:8000 your-flask-app
 6. Install gcloud cli
 
 
-# Without Docker
 
-sudo apt-get update
-sudo apt-get install -y build-essential python3.9 python3.9-dev libpq-dev curl git
+# Create Instance in GCP
+1. f1-micro region sg (cheapest)
+2. spot provisioning
+3. allow http and https
+4. network interface use external static ip (0.004 usd per hour)
+5. setup container 

@@ -53,25 +53,3 @@ def login():
         return {"error": "User or password is not valid"}, 401
     
     return result
-
-    # user = User.query.filter_by(username=data['username']).first()
-    # if not user:
-    #     return {"error": "User or password is not valid"}, 401
-    
-    # valid = bcrypt.check_password_hash(user.password, data['password'])
-
-    # if not valid:
-    #     return {"error": "User or password is not valid"}, 401
-    
-    # token = jwt.encode({
-    #     'user_id': user.id,
-    #     'username': user.username,
-    #     'exp': datetime.utcnow() + timedelta(seconds=10)
-    # }, os.getenv('SECRET_KEY'), algorithm='HS256')
-    
-    # return {
-    #     'id': user.id,
-    #     'username': user.username,
-    #     'email': user.email,
-    #     'token': token
-    # }
