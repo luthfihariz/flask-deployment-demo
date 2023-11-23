@@ -1,5 +1,4 @@
-from core.auth.specs import AuthRegistrationSpec, AuthRegistrationResult
-from core.common.bcrypt import bcrypt
+from core.auth.ports import IHashingProvider
 from core.user.constants import UserRole
 from core.user.ports import IUserAccessor
 from core.user.models import UserDomain
@@ -10,11 +9,12 @@ from datetime import datetime, timedelta
 class AuthService():
 
     @inject
-    def __init__(self, user_accessor: IUserAccessor) -> None:
+    def __init__(self, user_accessor: IUserAccessor, hashing_provider: IHashingProvider) -> None:
         self.user_accessor = user_accessor
+        self.hashing_provider = hashing_provider
 
     def register(self, username: str, password: str, email:str, role: UserRole) -> UserDomain:
-        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')     
+        hashed_password = self.hashing_provider.generate(password)
         user = self.user_accessor.create_user(
             username,
             hashed_password,
@@ -31,7 +31,7 @@ class AuthService():
         if not user:
             return None
         
-        valid = bcrypt.check_password_hash(user.password, password)
+        valid = self.hashing_provider.check_hash(user.password, password)
 
         if not valid:
             return None
